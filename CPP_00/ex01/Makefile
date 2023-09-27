@@ -4,14 +4,19 @@ CC = c++
 
 SRCS = Main.cpp PhoneBook.cpp Contact.cpp
 
+OBJS = $(SRCS:.cpp=.o)
+
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -I./
 
 RM = rm -fr
 
 all : $(NAME)
 
-$(NAME):
-			@$(CC) $(CPPFLAGS) $(SRCS) -o $(NAME)
+$(NAME):	$(OBJS)
+			@$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.cpp
+			@$(CC) $(CPPFLAGS) -c -o $@ $<
 
 clean:			
 				@$(RM) $(OBJS)	

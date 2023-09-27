@@ -25,3 +25,6 @@ fclean:			clean
 				@$(RM) $(NAME)
 
 re:				fclean $(NAME)
+
+r:				re
+				@valgrind ./$(NAME)
