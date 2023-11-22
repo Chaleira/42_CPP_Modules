@@ -13,9 +13,9 @@ int main(void)
 	harl.complain("EMERGENCY");
 	harl.complain("FATAL");
 	std::cout << std::endl;
-	harl.complain("DEBUG");
-	harl.complain("INFO");
-	harl.complain("WARNING");
-	harl.complain("ERROR");
+	// harl.complain("DEBUG");
+	// harl.complain("INFO");
+	// harl.complain("WARNING");
+	// harl.complain("ERROR");
 	return 0;
 }

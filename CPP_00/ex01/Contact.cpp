@@ -16,7 +16,10 @@ bool Contact::get_filled()
 	return filled;
 }
 
-void Contact::set_filled(bool filled) {this->filled = filled;}
+void Contact::set_filled(bool filled)
+{
+	this->filled = filled;
+}
 
 std::string Contact::get_first_name()
 {

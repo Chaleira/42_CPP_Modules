@@ -1,4 +1,4 @@
-NAME = 
+NAME = main
 
 CC = c++
 

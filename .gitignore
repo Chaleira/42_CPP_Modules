@@ -1,0 +1,8 @@
+*.o
+PhoneBook
+logs_file
+Zombie
+ZombieHorde
+main
+harl
+harlFilter

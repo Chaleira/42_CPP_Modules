@@ -1,14 +1,10 @@
 #include "Harl.hpp"
 
-Harl::Harl()
-{
-	std::cout << "Harl constructor has been called" << std::endl;
-}
+typedef void (Harl::*FunctionPtr)(void);
 
-Harl::~Harl()
-{
-	std::cout << "Harl destructor has been called" << std::endl;
-}
+Harl::Harl(){}
+
+Harl::~Harl(){}
 
 void Harl::debug(void)
 {

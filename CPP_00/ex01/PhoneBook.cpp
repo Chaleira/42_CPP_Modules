@@ -34,7 +34,7 @@ void PhoneBook::print_table()
               << std::setw(10) << std::right << "First Name" << " | "
               << std::setw(10) << std::right << "Last Name" << " | "
               << std::setw(10) << std::right << "Nickname" << std::endl;
-	while (contact[i].get_filled() == true)
+	while (i < 8 && contact[i].get_filled() == true)
 	{
 		std::cout << std::setw(10) << std::right << (i + 1) << " | "
               << std::setw(10) << std::right << search_first_name(i) << " | "
