@@ -12,6 +12,7 @@ class PhoneBook
 private:
 	Contact contact[8];
 	int num_contact;
+
 	std::string search_first_name(int i);
 	std::string search_last_name(int i);
 	std::string search_nickname(int i);

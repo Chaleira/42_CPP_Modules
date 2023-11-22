@@ -1,4 +1,5 @@
 *.o
+.vscode
 PhoneBook
 logs_file
 Zombie

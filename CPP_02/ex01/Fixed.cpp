@@ -25,9 +25,14 @@ Fixed& Fixed::operator=(const Fixed& other)
 	return *this;
 }
 
+std::ostream& operator<<(std::ostream& out, const Fixed& fp)
+{
+	out << fp.toFloat();
+	return out;
+}
+
 int Fixed::getRawBits(void) const
 {	
-	std::cout << "getRawBits member function called" << std::endl;
 	return fixedNumberValue;
 }
 
@@ -50,11 +55,11 @@ Fixed::Fixed(const float value)
 
 float Fixed::toFloat(void) const
 {
-	
+	return static_cast<float>(fixedNumberValue) / (1 << fractionalBits);
 }
 
 int Fixed::toInt(void) const
 {
-
+	return fixedNumberValue >> fractionalBits;
 }
 
