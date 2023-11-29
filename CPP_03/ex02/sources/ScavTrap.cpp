@@ -41,6 +41,17 @@ ScavTrap::ScavTrap(std::string Scavname) : ClapTrap(Scavname)
 
 void ScavTrap::attack(std::string const & target)
 {
+	if (energyPoints == 0)
+	{
+		std::cout << "ScavTrap " << name << " has no energy points left!" << std::endl;
+		return ;
+	}
+	if (hitPoints == 0)
+	{
+		std::cout << "ScavTrap " << name << " can't attack because it's dead!" << std::endl;
+		return ;
+	}
+	energyPoints -= 1;
 	std::cout << "ScavTrap " << name << " attack " << target << ", causing " << attackDamage << " points of damage!" << std::endl;
 }
 

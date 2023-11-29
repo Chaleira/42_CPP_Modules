@@ -4,6 +4,7 @@ int main (void)
 {
 	DiamondTrap diamondTrap("flopy");
 
+	diamondTrap.printStatus();
 	diamondTrap.attack("target");
 	diamondTrap.whoAmI();
 	diamondTrap.highFivesGuys();
