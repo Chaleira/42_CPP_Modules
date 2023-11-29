@@ -2,7 +2,7 @@ NAME = main
 
 CC = c++
 
-SRCS = sources/main.cpp
+SRCS = sources/main.cpp sources/Animal.cpp sources/Dog.cpp sources/Cat.cpp sources/WrongAnimal.cpp sources/WrongCat.cpp sources/Brain.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

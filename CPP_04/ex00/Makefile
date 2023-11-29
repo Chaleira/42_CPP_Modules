@@ -2,11 +2,11 @@ NAME = main
 
 CC = c++
 
-SRCS = sources/main.cpp
+SRCS = sources/main.cpp sources/Animal.cpp sources/Dog.cpp sources/Cat.cpp sources/WrongAnimal.cpp sources/WrongCat.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes -fsanitize=address
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes
 
 RM = rm -fr
 
