@@ -11,6 +11,10 @@ class Character : public ICharacter
 		std::string _name;
 		AMateria *_inventory[4];
 		int _count;
+		int _droped_count;
+		AMateria **_droped;
+		AMateria **_copyDroped(AMateria *m);
+
 	public:
 		Character();
 		Character(std::string const &name);
