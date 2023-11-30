@@ -25,6 +25,7 @@ int main()
 	}
 	std::cout << "---------------------" << std::endl;
 	Cat albert;
+	albert.showIdeas();
 	albert.setIdeas("Albert's idea");
 	albert.showIdeas();
 	Cat copy(albert);
