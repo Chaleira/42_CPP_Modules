@@ -14,6 +14,7 @@ class Character : public ICharacter
 		int _droped_count;
 		AMateria **_droped;
 		AMateria **_copyDroped(AMateria *m);
+		bool _isInDroped(AMateria *m);
 
 	public:
 		Character();

@@ -40,6 +40,7 @@ int main()
 	me->use(2, *bob);
 	me->use(3, *bob);
 	me->use(4, *bob);
+	me->use(5, *bob);
 	delete bob;
 	delete me;
 	delete src;

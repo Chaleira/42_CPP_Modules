@@ -6,7 +6,7 @@ SRCS = sources/main.cpp sources/AMateria.cpp sources/Ice.cpp sources/Cure.cpp so
 
 OBJS = $(SRCS:.cpp=.o)
 
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes #-fsanitize=address
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes
 
 RM = rm -fr
 

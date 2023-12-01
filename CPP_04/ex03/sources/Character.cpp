@@ -38,10 +38,10 @@ Character &Character::operator=(const Character &copy)
 
 Character::~Character()
 {
-	std::cout << "Character destructor called" << std::endl;
+	// std::cout << "Character destructor called" << std::endl;
 	for (int i = 0; i < 4; i++)
 	{
-		if (this->_inventory[i])
+		if (this->_inventory[i] && !_isInDroped(this->_inventory[i]))
 			delete this->_inventory[i];
 	}
 	for (int i = 0; i < _droped_count; i++)
@@ -70,7 +70,8 @@ void Character::equip(AMateria *m)
 			return ;
 		}
 	}
-	_droped = _copyDroped(m);
+	if (!_isInDroped(m))
+		_droped = _copyDroped(m);
 }
 
 void Character::unequip(int idx)
@@ -78,7 +79,8 @@ void Character::unequip(int idx)
 	if (idx < 0 || idx > 3)
 		return ;
 	_count--;
-	_droped = _copyDroped(this->_inventory[idx]);
+	if (!_isInDroped(this->_inventory[idx]))
+		_droped = _copyDroped(this->_inventory[idx]);
 	this->_inventory[idx] = NULL;
 }
 
@@ -107,4 +109,14 @@ AMateria **Character::_copyDroped(AMateria *m)
 	}
 	else
 		return (_droped);
+}
+
+bool Character::_isInDroped(AMateria *m)
+{
+	for (int i = 0; i < _droped_count; i++)
+	{
+		if (_droped[i] == m)
+			return (true);
+	}
+	return (false);
 }

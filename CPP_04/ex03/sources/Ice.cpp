@@ -23,7 +23,7 @@ Ice &Ice::operator=(const Ice &copy)
 
 Ice::~Ice()
 {
-	std::cout << "Ice destructor called" << std::endl;
+	// std::cout << "Ice destructor called" << std::endl;
 }
 
 AMateria *Ice::clone() const
