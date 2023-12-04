@@ -15,6 +15,7 @@ class Character : public ICharacter
 		AMateria **_droped;
 		AMateria **_copyDroped(AMateria *m);
 		bool _isInDroped(AMateria *m);
+		bool _isInInv(AMateria *m);
 
 	public:
 		Character();

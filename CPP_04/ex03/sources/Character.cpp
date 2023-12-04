@@ -63,7 +63,7 @@ void Character::equip(AMateria *m)
 		return ;
 	for (int i = 0; i < 4; i++)
 	{
-		if (!this->_inventory[i])
+		if (!this->_inventory[i] && !_isInInv(m))
 		{
 			this->_inventory[i] = m;
 			this->_count++;
@@ -116,6 +116,16 @@ bool Character::_isInDroped(AMateria *m)
 	for (int i = 0; i < _droped_count; i++)
 	{
 		if (_droped[i] == m)
+			return (true);
+	}
+	return (false);
+}
+
+bool Character::_isInInv(AMateria *m)
+{
+	for (int i = 0; i < _count; i++)
+	{
+		if (_inventory[i] == m)
 			return (true);
 	}
 	return (false);
