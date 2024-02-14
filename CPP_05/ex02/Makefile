@@ -2,7 +2,7 @@ NAME = main
 
 CC = c++
 
-SRCS = sources/main.cpp
+SRCS = sources/AForm.cpp sources/Bureaucrat.cpp sources/main.cpp sources/PresidentialPardonForm.cpp sources/RobotomyRequestForm.cpp sources/ShrubberyCreationForm.cpp
 
 OBJS_PATH = obj/
 SRC_PATH = sources/
