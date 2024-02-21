@@ -9,14 +9,14 @@ class Bureaucrat;
 class AForm
 {
 private:
-	const char *_name;
+	const std::string _name;
 	bool _signed;
-	int _signGrade;
-	int _execGrade;
+	const int _signGrade;
+	const int _execGrade;
 
 protected:
 	AForm();
-	AForm(const char *name, int signGrade, int execGrade);
+	AForm(const std::string name, int signGrade, int execGrade);
 	AForm(const AForm &copy);
 	AForm &operator=(const AForm &copy);
 

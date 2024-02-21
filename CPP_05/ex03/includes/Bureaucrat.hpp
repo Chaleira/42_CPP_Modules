@@ -9,12 +9,12 @@ class AForm;
 class Bureaucrat
 {
 private:
-	const char *_name;
+	const std::string _name;
 	int _grade;
 
 public:
 	Bureaucrat();
-	Bureaucrat(const char *name, int grade);
+	Bureaucrat(const std::string name, int grade);
 	Bureaucrat(const Bureaucrat &copy);
 	Bureaucrat &operator=(const Bureaucrat &copy);
 	~Bureaucrat();

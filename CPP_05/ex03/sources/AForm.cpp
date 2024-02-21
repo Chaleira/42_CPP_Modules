@@ -1,28 +1,23 @@
 #include "AForm.hpp"
 
-AForm::AForm()
+AForm::AForm():
+_name("Form"), _signed(false), _signGrade(150), _execGrade(150)
 {
 	std::cout << "AForm default constructor called" << std::endl;
-	_name = "AForm";
-	_signed = false;
-	_signGrade = 150;
-	_execGrade = 150;
 }
 
-AForm::AForm(const char *name, int signGrade, int execGrade)
+AForm::AForm(const std::string name, int signGrade, int execGrade):
+_name(name), _signed(false), _signGrade(signGrade), _execGrade(execGrade)
 {
 	std::cout << "AForm parameter constructor called" << std::endl;
 	if (signGrade < 1 || execGrade < 1)
 		throw AForm::GradeTooHighException();
 	else if (signGrade > 150 || execGrade > 150)
 		throw AForm::GradeTooLowException();
-	_name = name;
-	_signed = false;
-	_signGrade = signGrade;
-	_execGrade = execGrade;
 }
 
-AForm::AForm(const AForm &copy)
+AForm::AForm(const AForm &copy):
+_name(copy._name), _signed(copy._signed), _signGrade(copy._signGrade), _execGrade(copy._execGrade)
 {
 	std::cout << "AForm copy constructor called" << std::endl;
 	*this = copy;
@@ -31,10 +26,7 @@ AForm::AForm(const AForm &copy)
 AForm &AForm::operator=(const AForm &copy)
 {
 	std::cout << "AForm assignation operator called" << std::endl;
-	_name = copy._name;
 	_signed = copy._signed;
-	_signGrade = copy._signGrade;
-	_execGrade = copy._execGrade;
 	return (*this);
 }
 
@@ -88,11 +80,8 @@ const char* AForm::FormNotSignedException::what() const throw()
 
 std::ostream& operator<<(std::ostream &out, const AForm &form)
 {
-	out << "Form " << form.getName() << " is ";
-	if (form.getSigned())
-		out << "signed";
-	else
-		out << "not signed";
-	out << " and requires grade " << form.getSignGrade() << " to sign and grade " << form.getExecGrade() << " to execute";
+	out << "Form " << form.getName() << " is "
+		<< (form.getSigned() ? "signed" : "not signed")
+		<< " and requires grade " << form.getSignGrade() << " to sign and grade " << form.getExecGrade() << " to execute";
 	return (out);
 }

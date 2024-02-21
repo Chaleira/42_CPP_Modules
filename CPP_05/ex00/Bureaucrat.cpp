@@ -1,24 +1,23 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat():
+_name("Bureaucrat"), _grade(150)
 {
 	std::cout << "Bureaucrat default constructor" << std::endl;
-	_name = "Bureaucrat";
-	_grade = 150;
 }
 
-Bureaucrat::Bureaucrat(const char *name, int grade)
+Bureaucrat::Bureaucrat(const std::string name, int grade):
+_name(name), _grade(grade)
 {
 	std::cout << "Bureaucrat parameter constructor" << std::endl;
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	_grade = grade;
-	_name = name;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &copy)
+Bureaucrat::Bureaucrat(const Bureaucrat &copy):
+_name(copy._name), _grade(copy._grade)
 {
 	std::cout << "Bureaucrat copy constructor" << std::endl;
 	*this = copy;
@@ -27,7 +26,6 @@ Bureaucrat::Bureaucrat(const Bureaucrat &copy)
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 {
 	std::cout << "Bureaucrat assignation operator" << std::endl;
-	_name = copy._name;
 	_grade = copy._grade;
 	return (*this);
 }

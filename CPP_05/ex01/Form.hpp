@@ -9,15 +9,15 @@ class Bureaucrat;
 class Form
 {
 private:
-	const char *_name;
+	const std::string _name;
 	bool _signed;
-	int _signGrade;
-	int _execGrade;
+	const int _signGrade;
+	const int _execGrade;
 
 public:
 
 	Form();
-	Form(const char *name, int signGrade, int execGrade);
+	Form(const std::string name, int signGrade, int execGrade);
 	Form(const Form &copy);
 	Form &operator=(const Form &copy);
 	~Form();

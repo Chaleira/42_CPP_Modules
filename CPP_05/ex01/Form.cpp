@@ -1,28 +1,23 @@
 #include "Form.hpp"
 
-Form::Form()
+Form::Form():
+_name("Form"), _signed(false), _signGrade(150), _execGrade(150)
 {
 	std::cout << "Form default constructor" << std::endl;
-	_name = "Form";
-	_signed = false;
-	_signGrade = 150;
-	_execGrade = 150;
 }
 
-Form::Form(const char *name, int signGrade, int execGrade)
+Form::Form(const std::string name, int signGrade, int execGrade):
+_name(name), _signed(false), _signGrade(signGrade), _execGrade(execGrade)
 {
 	std::cout << "Form parameter constructor" << std::endl;
 	if (signGrade < 1 || execGrade < 1)
 		throw Form::GradeTooHighException();
 	else if (signGrade > 150 || execGrade > 150)
 		throw Form::GradeTooLowException();
-	_name = name;
-	_signed = false;
-	_signGrade = signGrade;
-	_execGrade = execGrade;
 }
 
-Form::Form(const Form &copy)
+Form::Form(const Form &copy):
+_name(copy._name), _signed(copy._signed), _signGrade(copy._signGrade), _execGrade(copy._execGrade)
 {
 	std::cout << "Form copy constructor" << std::endl;
 	*this = copy;
@@ -31,10 +26,7 @@ Form::Form(const Form &copy)
 Form &Form::operator=(const Form &copy)
 {
 	std::cout << "Form assignation operator" << std::endl;
-	_name = copy._name;
 	_signed = copy._signed;
-	_signGrade = copy._signGrade;
-	_execGrade = copy._execGrade;
 	return (*this);
 }
 

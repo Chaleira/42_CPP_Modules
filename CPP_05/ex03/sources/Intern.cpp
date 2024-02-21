@@ -33,31 +33,24 @@ const char* Intern::FormNotFoundException::what() const throw()
 
 AForm *Intern::makeForm(std::string form, std::string target)
 {
-	try {
-		int index = 3;
-		for (int i = 0; i < 3; i++)
+	int index = 3;
+	for (int i = 0; i < 3; i++)
+	{
+		if (form == _forms_name[i])
 		{
-			if (form == _forms_name[i])
-			{
-				std::cout << "Intern creates " << form << std::endl;
-				index = i;
-			}
-		}
-		switch (index)
-		{
-		case 0:
-			return (new ShrubberyCreationForm(target));
-		case 1:
-			return (new RobotomyRequestForm(target));
-		case 2:
-			return (new PresidentialPardonForm(target));	
-		default:
-			throw FormNotFoundException();
+			std::cout << "Intern creates " << form << std::endl;
+			index = i;
 		}
 	}
-	catch (std::exception & e)
+	switch (index)
 	{
-		std::cout << "Intern failed to create " << form << " because " << e.what() << std::endl;
-		return NULL;
+	case 0:
+		return (new ShrubberyCreationForm(target));
+	case 1:
+		return (new RobotomyRequestForm(target));
+	case 2:
+		return (new PresidentialPardonForm(target));
+	default:
+		throw FormNotFoundException();
 	}
 }
