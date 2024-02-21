@@ -68,7 +68,7 @@ void Form::beSigned(const Bureaucrat &bureaucrat)
 	if (bureaucrat.getGrade() > _signGrade)
 		throw Form::GradeTooLowException();
 	_signed = true;
-	std::cout << "Bureaucrat " << bureaucrat.getName() << " signs form " << _name << std::endl;
+	std::cout << "Bureaucrat " << bureaucrat.getName() << " signed form " << _name << std::endl;
 }
 
 const char* Form::GradeTooHighException::what() const throw()

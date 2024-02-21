@@ -34,7 +34,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Bureaucrat destructor" << std::endl;
+	std::cout << "Bureaucrat \""<< _name << "\" destructor" << std::endl;
 }
 
 std::string Bureaucrat::getName() const

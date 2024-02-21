@@ -27,38 +27,37 @@ Intern &Intern::operator=(const Intern &copy)
 }
 
 const char* Intern::FormNotFoundException::what() const throw()
-
 {
 	return ("Form not found");
 }
 
-AForm *delete_array(AForm *forms_class[3], int i)
-{
-	delete forms_class[i - 1];
-	delete forms_class[i + 1];
-	return (forms_class[i]);
-}
-
 AForm *Intern::makeForm(std::string form, std::string target)
 {
-	int index = 3;
-	for (int i = 0; i < 3; i++)
-	{
-		if (form == _forms_name[i])
+	try {
+		int index = 3;
+		for (int i = 0; i < 3; i++)
 		{
-			std::cout << "Intern creates " << form << std::endl;
-			index = i;
+			if (form == _forms_name[i])
+			{
+				std::cout << "Intern creates " << form << std::endl;
+				index = i;
+			}
+		}
+		switch (index)
+		{
+		case 0:
+			return (new ShrubberyCreationForm(target));
+		case 1:
+			return (new RobotomyRequestForm(target));
+		case 2:
+			return (new PresidentialPardonForm(target));	
+		default:
+			throw FormNotFoundException();
 		}
 	}
-	switch (index)
+	catch (std::exception & e)
 	{
-	case 0:
-		return (new ShrubberyCreationForm(target));
-	case 1:
-		return (new RobotomyRequestForm(target));
-	case 2:
-		return (new PresidentialPardonForm(target));	
-	default:
-		throw FormNotFoundException();
+		std::cout << "Intern failed to create " << form << " because " << e.what() << std::endl;
+		return NULL;
 	}
 }

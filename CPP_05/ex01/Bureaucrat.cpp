@@ -79,9 +79,11 @@ std::ostream& operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
 
 void Bureaucrat::signForm(Form &form) const
 {
-
-	if (form.getSignGrade() < _grade)
-		throw Bureaucrat::GradeTooLowException();
-	form.beSigned(*this);
-	std::cout << _name << " signed " << form.getName() << std::endl;
+	try {
+		form.beSigned(*this);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << _name << " cannot sign " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
