@@ -18,7 +18,7 @@ int main (void)
 
 	try
 	{
-		std::cout << "Creating a Form of tier 1 (highest)" << std::endl << std::endl;
+		std::cout << "Creating a Form of tier 1 (highest) " << std::endl << std::endl;
 		RobotomyRequestForm f("f");
 		std::cout << "------------------------------------------" << std::endl;
 	
