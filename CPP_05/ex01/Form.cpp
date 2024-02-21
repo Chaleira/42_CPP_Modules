@@ -9,7 +9,7 @@ Form::Form()
 	_execGrade = 150;
 }
 
-Form::Form(std::string name, int signGrade, int execGrade)
+Form::Form(const char *name, int signGrade, int execGrade)
 {
 	std::cout << "Form parameter constructor" << std::endl;
 	if (signGrade < 1 || execGrade < 1)
@@ -65,8 +65,10 @@ int Form::getExecGrade() const
 
 void Form::beSigned(const Bureaucrat &bureaucrat)
 {
-	bureaucrat.signForm(*this);
+	if (bureaucrat.getGrade() > _signGrade)
+		throw Form::GradeTooLowException();
 	_signed = true;
+	std::cout << "Bureaucrat " << bureaucrat.getName() << " signs form " << _name << std::endl;
 }
 
 const char* Form::GradeTooHighException::what() const throw()

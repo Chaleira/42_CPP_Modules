@@ -9,7 +9,7 @@ AForm::AForm()
 	_execGrade = 150;
 }
 
-AForm::AForm(std::string name, int signGrade, int execGrade)
+AForm::AForm(const char *name, int signGrade, int execGrade)
 {
 	std::cout << "AForm parameter constructor called" << std::endl;
 	if (signGrade < 1 || execGrade < 1)

@@ -7,7 +7,7 @@ Bureaucrat::Bureaucrat()
 	_grade = 150;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade)
+Bureaucrat::Bureaucrat(const char *name, int grade)
 {
 	std::cout << "Bureaucrat parameter constructor" << std::endl;
 	if (grade < 1)

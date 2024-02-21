@@ -63,8 +63,8 @@ void convertToInt(std::string str)
 			return;
 		}
 		std::cout << "int: ";
-		if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-			throw ScalarConverter::ImpossibleException();
+		// if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
+		// 	throw ScalarConverter::ImpossibleException();
 		double dvalue = atof(str.c_str());
 		if (dvalue < INT_MIN || dvalue > INT_MAX || std::isnan(dvalue) || std::isinf(dvalue))
 			throw ScalarConverter::ImpossibleException();
@@ -85,11 +85,11 @@ void convertToFloat(std::string str)
 			return;
 		}
 		std::cout << "float: ";
-		if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-			throw ScalarConverter::ImpossibleException();
+		// if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
+		// 	throw ScalarConverter::ImpossibleException();
 		double dvalue = atof(str.c_str());
 		std::cout << static_cast<float>(dvalue);
-		if (static_cast<float>(dvalue) - static_cast<int>(dvalue) == 0)
+		if (static_cast<float>(dvalue) - static_cast<long long>(dvalue) == 0)
 			std::cout << ".0";
 		std::cout << "f" << std::endl;
 	}
@@ -108,11 +108,11 @@ void convertToDouble(std::string str)
 			return;
 		}
 		std::cout << "double: ";
-		if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-			throw ScalarConverter::ImpossibleException();
+		// if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
+		// 	throw ScalarConverter::ImpossibleException();
 		double dvalue = atof(str.c_str());
 		std::cout << dvalue;
-		if (dvalue - static_cast<int>(dvalue) == 0)
+		if (dvalue - static_cast<long long>(dvalue) == 0)
 			std::cout << ".0";
 		std::cout << std::endl;
 	}

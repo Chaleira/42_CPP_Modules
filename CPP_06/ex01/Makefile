@@ -2,7 +2,7 @@ NAME = main
 
 CC = c++
 
-SRCS = sources/Serializer.cpp sources/main.cpp
+SRCS = sources/Serializer.cpp sources/abc.cpp sources/def.cpp sources/main.cpp
 
 OBJS_PATH = obj/
 SRC_PATH = sources/
@@ -10,6 +10,8 @@ SRC_PATH = sources/
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes -fsanitize=address
 
 RM = rm -fr
+
+SRCS_line = cat Makefile | grep -n SRCS | 
 
 $(OBJS): $(OBJS_PATH)
 

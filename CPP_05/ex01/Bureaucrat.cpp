@@ -7,7 +7,7 @@ Bureaucrat::Bureaucrat()
 	_grade = 150;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade)
+Bureaucrat::Bureaucrat(const char *name, int grade)
 {
 	std::cout << "Bureaucrat parameter constructor" << std::endl;
 	if (grade < 1)
@@ -79,11 +79,9 @@ std::ostream& operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
 
 void Bureaucrat::signForm(Form &form) const
 {
+
 	if (form.getSignGrade() < _grade)
-	{
-		std::cout << _name << " cannot sign " << form.getName() << " because his grade is too low" << std::endl;
 		throw Bureaucrat::GradeTooLowException();
-	}
 	form.beSigned(*this);
 	std::cout << _name << " signed " << form.getName() << std::endl;
 }
