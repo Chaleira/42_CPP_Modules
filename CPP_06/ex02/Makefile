@@ -2,7 +2,7 @@ NAME = main
 
 CC = c++
 
-SRCS = sources/Serializer.cpp sources/main.cpp
+SRCS = sources/A.cpp sources/B.cpp sources/Base.cpp sources/C.cpp sources/main.cpp
 
 OBJS_PATH = obj/
 SRC_PATH = sources/

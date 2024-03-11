@@ -4,7 +4,16 @@
 #include <iostream>
 #include <cmath>
 #include <climits>
+#include <cfloat>
 
+enum e_type
+{
+	CHAR = 1,
+	INT = 2,
+	FLOAT = 3,
+	DOUBLE = 4,
+	INVALID = 5
+};
 class ScalarConverter
 {
 	private:

@@ -29,109 +29,153 @@ const char *ScalarConverter::NonDisplayableException::what() const throw()
 	return "Non displayable";
 }
 
-void convertToChar(std::string str)
+void printChar(int c)
 {
-	try {
-		if (str.length() == 1 && !isdigit(str[0]))
-		{
-			std::cout << "char: '" << str << "'" << std::endl;
-			return;
-		}
-		std::cout << "char: ";
-		if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-			throw ScalarConverter::ImpossibleException();
-		double dvalue = atof(str.c_str());
-		if (dvalue < 0 || dvalue > 127 || std::isnan(dvalue) || std::isinf(dvalue))
-			throw ScalarConverter::ImpossibleException();
-		if (std::isprint(static_cast<char>(dvalue)))
-			std::cout << "'" << static_cast<char>(dvalue) << "'" << std::endl;
-		else
-			throw ScalarConverter::NonDisplayableException();
-	}
-	catch (std::exception &e)
+	std::cout << "char: ";
+	if (c < 0 || c > 127)
+		std::cout << "impossible" << std::endl;
+	else if (isprint(c))
+		std::cout << "'" << static_cast<char>(c) << "'" << std::endl;
+	else
+		std::cout << "Non displayable" << std::endl;
+}
+
+void printInt(long num)
+{
+	std::cout << "int: ";
+	if (num > INT_MAX || num < INT_MIN)
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << static_cast<int>(num) << std::endl;
+}
+
+void printFloat(float num)
+{
+	std::cout << "float: ";
+	if (num > FLT_MAX || num < -FLT_MAX)
+		std::cout << "impossible" << std::endl;
+	else if (num - static_cast<long long>(num) == 0)
+		std::cout << static_cast<float>(num) << ".0f" << std::endl;
+	else
+		std::cout << static_cast<float>(num) << "f" << std::endl;
+}
+
+void printDouble(double num)
+{
+	std::cout << "double: ";
+	if (num - static_cast<long long>(num) == 0)
+		std::cout << static_cast<double>(num) << ".0" << std::endl;
+	else
+		std::cout << static_cast<double>(num) << std::endl;
+}
+
+int identifyType(std::string str)
+{
+	if (str == "nan" || str == "nanf" || str == "+inf" || str == "+inff" || str == "-inf" || str == "-inff"
+		|| str == "inff" || str == "inf")
 	{
-		std::cerr << e.what() << std::endl;
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: " << str << std::endl;
+		std::cout << "double: " << str << std::endl;
+		return 6;
 	}
+	if (str.length() == 1 && !isdigit(str[0]))
+		return CHAR;
+	size_t i = 0;
+	if (str[0] == '+' || str[0] == '-')
+		i = 1;
+	while (isdigit(str[i])  && i < str.length())
+		i++;
+	if (i == str.length())
+		return INT;
+	if (str[i] == '.')
+	{
+		i++;
+		if (!str[i] || !isdigit(str[i]))
+			return INVALID;
+		while (isdigit(str[i]) && i < str.length())
+			i++;
+		if (str[i] == 'f' && i == str.length() - 1)
+			return FLOAT;
+		if (i == str.length())
+			return DOUBLE;
+	}
+	return INVALID;
 }
 
 void convertToInt(std::string str)
 {
-	try {
-		if (str.length() == 1 && !isdigit(str[0]))
-		{
-			std::cout << "int: " << static_cast<int>(str[0]) << std::endl;
-			return;
-		}
-		std::cout << "int: ";
-		// if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-		// 	throw ScalarConverter::ImpossibleException();
-		double dvalue = atof(str.c_str());
-		if (dvalue < INT_MIN || dvalue > INT_MAX || std::isnan(dvalue) || std::isinf(dvalue))
-			throw ScalarConverter::ImpossibleException();
-		std::cout << static_cast<int>(dvalue) << std::endl;
-	}
-	catch (std::exception &e)
+	long num = atol(str.c_str());
+	if (num > INT_MAX || num < INT_MIN)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: impossible" << std::endl;
+		std::cout << "double: impossible" << std::endl;
+	}
+	else
+	{
+		printChar(num);
+		printInt(num);
+		printFloat(static_cast<float>(num));
+		printDouble(static_cast<double>(num));
+	
 	}
 }
 
 void convertToFloat(std::string str)
 {
-	try {
-		if (str.length() == 1 && !isdigit(str[0]))
-		{
-			std::cout << "float: " << static_cast<float>(str[0]) << ".0f" << std::endl;
-			return;
-		}
-		std::cout << "float: ";
-		// if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-		// 	throw ScalarConverter::ImpossibleException();
-		double dvalue = atof(str.c_str());
-		std::cout << static_cast<float>(dvalue);
-		if (static_cast<float>(dvalue) - static_cast<long long>(dvalue) == 0)
-			std::cout << ".0";
-		std::cout << "f" << std::endl;
-	}
-	catch (std::exception &e)
+	float num = atof(str.c_str());
+	if (num > FLT_MAX || num < -FLT_MAX)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: impossible" << std::endl;
+		std::cout << "double: impossible" << std::endl;
 	}
-}
-
-void convertToDouble(std::string str)
-{
-	try {
-		if (str.length() == 1 && !isdigit(str[0]))
-		{
-			std::cout << "double: " << static_cast<double>(str[0]) << ".0" << std::endl;
-			return;
-		}
-		std::cout << "double: ";
-		// if (((str[0] == '+' || str[0] == '-') && !isdigit(str[1])) || (str.length() >= 2 && !isdigit(str[1])))
-		// 	throw ScalarConverter::ImpossibleException();
-		double dvalue = atof(str.c_str());
-		std::cout << dvalue;
-		if (dvalue - static_cast<long long>(dvalue) == 0)
-			std::cout << ".0";
-		std::cout << std::endl;
-	}
-	catch (std::exception &e)
+	else
 	{
-		std::cerr << e.what() << std::endl;
+		printChar(num);
+		printInt(num);
+		printFloat(num);
+		printDouble(static_cast<double>(num));
 	}
 }
 
 void ScalarConverter::convert(std::string d)
 {
-	try {
-		convertToChar(d);
-		convertToInt(d);
-		convertToFloat(d);
-		convertToDouble(d);
-	}
-	catch (std::exception &e)
+	int type = identifyType(d);
+
+	switch (type)
 	{
-		std::cerr << e.what() << std::endl;
+	case 1 :
+		printChar(d[0]);
+		printInt(static_cast<int>(d[0]));
+		printFloat(static_cast<float>(d[0]));
+		printDouble(static_cast<double>(d[0]));
+		break;
+	case 2 : {
+		convertToInt(d);
+		break;
 	}
+	case 3 :
+		convertToFloat(d);
+		break;
+	case 4 :
+		printChar(atof(d.c_str()));
+		printInt(atof(d.c_str()));
+		printFloat(atof(d.c_str()));
+		printDouble(atof(d.c_str()));
+		break;
+	case 5:
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: impossible" << std::endl;
+		std::cout << "double: impossible" << std::endl;
+		break;
+	default:
+		break;
+	}
+	
 }
