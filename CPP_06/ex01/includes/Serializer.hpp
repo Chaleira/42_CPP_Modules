@@ -9,6 +9,8 @@
 typedef struct s_data
 {
 	int n;
+	char a;
+	std::string s;
 } Data;
 
 class Serializer

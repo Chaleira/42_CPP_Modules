@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    Data        data = {42};
+    Data        data = {42, 'a', "Hello World"};
     uintptr_t   ptr;
     Data        *data_ptr;
 
