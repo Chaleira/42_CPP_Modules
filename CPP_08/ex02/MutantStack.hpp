@@ -9,6 +9,7 @@ class MutantStack : public std::stack<T>
 	public:
 		typedef typename std::stack<T>::container_type::iterator iterator;
 
+
 		MutantStack() : std::stack<T>() {}
 		MutantStack(const MutantStack &other) : std::stack<T>(other) {}
 		MutantStack &operator=(const MutantStack &other)
@@ -26,5 +27,10 @@ class MutantStack : public std::stack<T>
 		{
 			std::stack<T>::c.end();
 			return std::stack<T>::c.end();
+		}
+
+		static void abc()
+		{
+			std::cout << "abc" << std::endl;
 		}
 };

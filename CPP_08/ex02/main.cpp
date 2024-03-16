@@ -18,6 +18,7 @@ mstack.push(5);
 mstack.push(737);
 //[...]
 mstack.push(0);
+MutantStack<int>::abc();
 MutantStack<int>::iterator it = mstack.begin();
 MutantStack<int>::iterator ite = mstack.end();
 ++it;
