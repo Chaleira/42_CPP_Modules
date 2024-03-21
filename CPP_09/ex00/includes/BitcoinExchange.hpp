@@ -9,18 +9,41 @@
 # include <cstdlib>
 # include <cstring>
 
+struct time
+{
+	int tm_year;
+	int tm_mon;
+	int tm_mday;
 
-class timeCompare {
+	bool operator<(const time &rhs) const
+	{
+		if (tm_year < rhs.tm_year)
+			return true;
+		else if (tm_year == rhs.tm_year)
+		{
+			if (tm_mon < rhs.tm_mon)
+				return true;
+			else if (tm_mon == rhs.tm_mon)
+			{
+				if (tm_mday < rhs.tm_mday)
+					return true;
+			}
+		}
+		return false;
+	}
 
-	int n;
-	bool operator() (const struct tm& lhs, const struct tm& rhs);
+	bool operator!=(const time &rhs) const
+	{
+		if (tm_year != rhs.tm_year || tm_mon != rhs.tm_mon || tm_mday != rhs.tm_mday)
+			return true;
+		return false;
+	}
 };
 
 class BitcoinExchange
 {
 	private:
-		std::map<struct tm, std::string, timeCompare> _dataBase;
-		std::map<struct tm, std::string, timeCompare> _inputData;
+		std::map<struct time, std::string> _dataBase;
 
 		void ExtractDataBase(void);
 		void ExtractFile(char *filename);
@@ -32,5 +55,6 @@ class BitcoinExchange
 		~BitcoinExchange();
 
 		void PrintDataBase(void);
+		bool CompareData(std::string key);
 
 };

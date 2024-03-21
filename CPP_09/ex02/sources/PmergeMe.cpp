@@ -8,7 +8,7 @@ PmergeMe::PmergeMe()
 PmergeMe::PmergeMe(const PmergeMe &copy)
 {
 	std::cout << "PmergeMe copy constructor called" << std::endl;
-	// Don't forget to copy the variables here
+	// Don't forget to copy the variables
 	*this = copy;
 }
 

@@ -31,7 +31,7 @@ void BitcoinExchange::ExtractDataBase(void)
 
 	if (file.is_open())
 	{
-		struct tm time;
+		struct time time;
 		std::string line, key, value;
 		while (std::getline(file, line))
 		{
@@ -49,7 +49,7 @@ void BitcoinExchange::ExtractDataBase(void)
 
 void BitcoinExchange::PrintDataBase(void)
 {
-	for (std::map<struct tm, std::string>::iterator it = _dataBase.begin(); it != _dataBase.end(); ++it)
+	for (std::map<struct time, std::string>::iterator it = _dataBase.begin(); it != _dataBase.end(); ++it)
 	{
 		std::cout << it->first.tm_year << "-" << it->first.tm_mon << "-" << it->first.tm_mday << " => " << it->second << std::endl;
 	}
@@ -59,31 +59,15 @@ void BitcoinExchange::ExtractFile(char *filename)
 {
 	std::ifstream file(filename);
 
-	_dataBase.key_comp().n;
 	if (file.is_open())
 	{
 		std::string line, key, value;
-		struct tm time;
 		while (std::getline(file, line))
 		{
 			std::stringstream linestream(line);
 			std::getline(linestream, key, '|');
 			std::getline(linestream, value);
-			std::cout << "year: " << key << std::endl;
-			bzero(&time, sizeof(time));
-			if (sscanf(key.c_str(), "%d-%d-%d", &time.tm_year, &time.tm_mon, &time.tm_mday))
-			{
-				std::cout << "1" << std::endl;
-				std::map<struct tm, std::string, timeCompare>::iterator it = _dataBase.find(time);
-				std::cout << "2" << std::endl;
-				if (it == _dataBase.end())
-					std::cout << "No data" << std::endl;
-				else
-					std::cout << "it->first.tm_year: " << it->first.tm_year << std::endl;
-			}
-			else
-				std::cout << "Invalid date" << std::endl;
-			std::cout << std::endl;
+			(void)CompareData(key);
 		}
 		file.close();
 	}
@@ -91,14 +75,34 @@ void BitcoinExchange::ExtractFile(char *filename)
 		throw std::runtime_error("Error: could not open file.");
 }
 
-bool timeCompare::operator()(const struct tm &lhs, const struct tm &rhs)
+bool validDate(int year, int month, int day)
 {
-	std::cout << "timeCompare called" << std::endl;
+	if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31)
+		return false;
+	if (month == 2)
+	{
+		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+			return day <= 29;
+		return day <= 28;
+	}
+	if (month == 4 || month == 6 || month == 9 || month == 11)
+		return day <= 30;
+	return true;
+}
 
-	this->n = 1;
-	if (lhs.tm_year != rhs.tm_year)
-		return lhs.tm_year < rhs.tm_year;
-	if (lhs.tm_mon != rhs.tm_mon)
-		return lhs.tm_mon < rhs.tm_mon;
-	return lhs.tm_mday < rhs.tm_mday;
+bool BitcoinExchange::CompareData(std::string key)
+{
+	struct time time;
+	if (sscanf(key.c_str(), "%d-%d-%d", &time.tm_year, &time.tm_mon, &time.tm_mday) == 3 && validDate(time.tm_year, time.tm_mon, time.tm_mday))	
+	{
+		std::map<struct time, std::string>::iterator it = _dataBase.lower_bound(time);
+		if (it != _dataBase.begin() && it != ++_dataBase.begin() && it->first != time)
+			it--;
+		std::cout << it->first.tm_year << "-" << it->first.tm_mon << "-" << it->first.tm_mday << " => ";
+		std::cout << it->second << std::endl;
+		return true;
+	}
+	else
+		std::cout << "Invalid date" << std::endl;
+	return false;
 }
