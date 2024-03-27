@@ -3,26 +3,23 @@
 BitcoinExchange::BitcoinExchange(char *filename)
 {
 	ExtractDataBase();
-	std::cout << "=======================" << std::endl;
 	ExtractFile(filename);
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
-	// Don't forget to copy the variables here
 	*this = copy;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
 	(void)copy;
-	// Don't forget to copy the variables here
 	return *this;
 }
 
 BitcoinExchange::~BitcoinExchange()
 {
-	std::cout << "BitcoinExchange destructor called" << std::endl;
+	// std::cout << "BitcoinExchange destructor called" << std::endl;
 }
 
 void BitcoinExchange::ExtractDataBase(void)
@@ -47,14 +44,6 @@ void BitcoinExchange::ExtractDataBase(void)
 		throw std::runtime_error("Error: could not access data Base.");
 }
 
-void BitcoinExchange::PrintDataBase(void)
-{
-	for (std::map<struct time, std::string>::iterator it = _dataBase.begin(); it != _dataBase.end(); ++it)
-	{
-		std::cout << it->first.tm_year << "-" << it->first.tm_mon << "-" << it->first.tm_mday << " => " << it->second << std::endl;
-	}
-}
-
 void BitcoinExchange::ExtractFile(char *filename)
 {
 	std::ifstream file(filename);
@@ -62,12 +51,19 @@ void BitcoinExchange::ExtractFile(char *filename)
 	if (file.is_open())
 	{
 		std::string line, key, value;
+		std::getline(file, line);
 		while (std::getline(file, line))
 		{
 			std::stringstream linestream(line);
 			std::getline(linestream, key, '|');
 			std::getline(linestream, value);
-			(void)CompareData(key);
+			float val = atof(value.c_str());
+			if (val < 0)
+				std::cerr << "Error: not a positive number." << std::endl;
+			else if (val > 1000)
+				std::cerr << "Error: too large a number." << std::endl;
+			else
+				CompareData(key, val);
 		}
 		file.close();
 	}
@@ -88,21 +84,34 @@ bool validDate(int year, int month, int day)
 	if (month == 4 || month == 6 || month == 9 || month == 11)
 		return day <= 30;
 	return true;
-}
+} 
 
-bool BitcoinExchange::CompareData(std::string key)
+std::map<struct time, std::string>::iterator checkDateDistance(std::map<struct time, std::string>::iterator it, struct time time)
+{
+	std::map<struct time, std::string>::iterator checklenght = it;
+	int lenght[2] = {0, 0};
+
+	checklenght--;
+	lenght[FRONT] = abs(it->first.tm_year - time.tm_year) * 365 + abs(it->first.tm_mon - time.tm_mon) * 30 + abs(it->first.tm_mday - time.tm_mday);
+	lenght[BACK] = abs(checklenght->first.tm_year - time.tm_year) * 365 + abs(checklenght->first.tm_mon - time.tm_mon) * 30 + abs(checklenght->first.tm_mday - time.tm_mday);
+	if (lenght[BACK] <= lenght[FRONT])
+		return --it;
+	return it;
+}	
+
+void BitcoinExchange::CompareData(std::string key, float value)
 {
 	struct time time;
 	if (sscanf(key.c_str(), "%d-%d-%d", &time.tm_year, &time.tm_mon, &time.tm_mday) == 3 && validDate(time.tm_year, time.tm_mon, time.tm_mday))	
 	{
 		std::map<struct time, std::string>::iterator it = _dataBase.lower_bound(time);
-		if (it != _dataBase.begin() && it != ++_dataBase.begin() && it->first != time)
+		if (it == --_dataBase.end() || it == _dataBase.end())
 			it--;
+		else if (it->first > time && it != ++_dataBase.begin())
+			it = checkDateDistance(it, time);
 		std::cout << it->first.tm_year << "-" << it->first.tm_mon << "-" << it->first.tm_mday << " => ";
-		std::cout << it->second << std::endl;
-		return true;
+		std::cout << value << " = " << value * atof(it->second.c_str()) << std::endl;
 	}
 	else
-		std::cout << "Invalid date" << std::endl;
-	return false;
+		std::cerr << "Error: bad input => " << time.tm_year << "-" << time.tm_mon << "-" << time.tm_mday <<std::endl;
 }

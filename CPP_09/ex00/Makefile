@@ -7,7 +7,7 @@ SRCS = sources/BitcoinExchange.cpp sources/main.cpp
 OBJS_PATH = obj/
 SRC_PATH = sources/
 
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I ./includes
+CPPFLAGS = -g -Wall -Werror -Wextra -std=c++98 -Wshadow -I ./includes
 
 RM = rm -fr
 

@@ -9,6 +9,9 @@
 # include <cstdlib>
 # include <cstring>
 
+# define FRONT 0
+# define BACK 1
+
 struct time
 {
 	int tm_year;
@@ -32,13 +35,32 @@ struct time
 		return false;
 	}
 
+	bool operator>(const time &rhs) const
+	{
+		if (tm_year > rhs.tm_year)
+			return true;
+		else if (tm_year == rhs.tm_year)
+		{
+			if (tm_mon > rhs.tm_mon)
+				return true;
+			else if (tm_mon == rhs.tm_mon)
+			{
+				if (tm_mday > rhs.tm_mday)
+					return true;
+			}
+		}
+		return false;
+	}
+
 	bool operator!=(const time &rhs) const
 	{
 		if (tm_year != rhs.tm_year || tm_mon != rhs.tm_mon || tm_mday != rhs.tm_mday)
 			return true;
 		return false;
 	}
+
 };
+
 
 class BitcoinExchange
 {
@@ -47,14 +69,12 @@ class BitcoinExchange
 
 		void ExtractDataBase(void);
 		void ExtractFile(char *filename);
+		void CompareData(std::string key, float value);
 
 	public:
 		BitcoinExchange(char *filename);
 		BitcoinExchange(const BitcoinExchange &copy);
 		BitcoinExchange &operator=(const BitcoinExchange &copy);
 		~BitcoinExchange();
-
-		void PrintDataBase(void);
-		bool CompareData(std::string key);
 
 };

@@ -11,7 +11,6 @@ int main(int ac, char **av)
     }
     try {
         BitcoinExchange exchange(av[1]);
-        // exchange.PrintDataBase
     }
     catch (std::exception &e) {
         std::cout << e.what() << std::endl;

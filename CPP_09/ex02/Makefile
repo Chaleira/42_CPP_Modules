@@ -1,4 +1,4 @@
-NAME = main
+NAME = PmergeMe
 
 CC = c++
 
@@ -7,7 +7,7 @@ SRCS = sources/PmergeMe.cpp sources/main.cpp
 OBJS_PATH = obj/
 SRC_PATH = sources/
 
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes -fsanitize=address
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -I./includes -g
 
 RM = rm -fr
 
