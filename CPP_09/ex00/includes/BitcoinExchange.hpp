@@ -8,6 +8,8 @@
 # include <sstream>
 # include <cstdlib>
 # include <cstring>
+# include <iomanip>
+# include <algorithm>
 
 # define FRONT 0
 # define BACK 1
@@ -58,7 +60,6 @@ struct time
 			return true;
 		return false;
 	}
-
 };
 
 
@@ -69,7 +70,8 @@ class BitcoinExchange
 
 		void ExtractDataBase(void);
 		void ExtractFile(char *filename);
-		void CompareData(std::string key, float value);
+		void CompareData(struct time time, double value);
+
 
 	public:
 		BitcoinExchange(char *filename);

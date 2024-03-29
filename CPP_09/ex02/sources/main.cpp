@@ -25,7 +25,7 @@ int main(int ac, char **av)
 	list_start = std::clock();
 	PmergeMe::sort(list);
 	list_end = std::clock();
-	list_time = (double)(list_end - list_start);
+	list_time = (double)(list_end - list_start) / CLOCKS_PER_SEC;
 	std::cout << "Before sorting:" << std::endl;
 	PmergeMe::print(vector);
 	vector_start = std::clock();
@@ -33,8 +33,8 @@ int main(int ac, char **av)
 	vector_end = std::clock();
 	std::cout << "After sorting:" << std::endl;
 	PmergeMe::print(vector);
-	vector_time = (double)(vector_end - vector_start);
-	std::cout << "list time:   " << list_time << " ms" << std::endl;
-	std::cout << "vector time: " << vector_time << " ms" << std::endl;
+	vector_time = (double)(vector_end - vector_start) / CLOCKS_PER_SEC;
+	std::cout << "list time:   " << std::fixed << list_time << " ms" << std::endl;
+	std::cout << "vector time: " << std::fixed << vector_time << " ms" << std::endl;
 	return 0;
 }
